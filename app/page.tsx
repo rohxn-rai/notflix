@@ -1,7 +1,7 @@
 "use client";
 
-import { Suspense, useState, useEffect } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
+import { NavigationProvider, useNavigation } from "@/context/NavigationContext";
 import { MOVIE_DB } from "@/data/movies";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -9,13 +9,11 @@ import MovieList from "@/components/MovieList";
 import MovieDetailView from "@/components/MovieDetailView";
 import LoginView from "@/components/LoginView";
 
-function MovieApp() {
-  const router = useRouter();
-  const searchParams = useSearchParams();
+const NotflixApp = () => {
+  const { currentView, selectedMovie, goToBrowse, goToLogin, goToMovieDetail } =
+    useNavigation();
 
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState<string>("");
-  const [isLoadingAuth, setIsLoadingAuth] = useState(true);
 
   useEffect(() => {
     const getCookie = (name: string) => {
@@ -28,10 +26,10 @@ function MovieApp() {
 
     if (cookieUser) {
       setUser(cookieUser);
-      setIsAuthenticated(true);
+      goToBrowse();
+    } else {
+      goToLogin();
     }
-
-    setIsLoadingAuth(false);
   }, []);
 
   const handleLogin = (username: string, isGuest: boolean) => {
@@ -40,15 +38,15 @@ function MovieApp() {
     document.cookie = `notflix_user=${username}; expires=${date.toUTCString()}; path=/`;
 
     setUser(username);
-    setIsAuthenticated(true);
+    goToBrowse();
   };
 
+  // 3. Handle Logout Action
   const handleLogout = () => {
     document.cookie =
       "notflix_user=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    setIsAuthenticated(false);
     setUser("");
-    router.refresh();
+    goToLogin();
   };
 
   const horrorMovies = MOVIE_DB.filter((m) => m.category === "Horror");
@@ -69,26 +67,16 @@ function MovieApp() {
     animationMovies[0],
   ];
 
-  const movieId = searchParams.get("movie");
-  const selectedMovie = MOVIE_DB.find((m) => m.id === movieId);
-  const openMovie = (id: string) => router.push(`/?movie=${id}`);
-  const closeMovie = () => router.back();
+  if (currentView === "LOGIN") {
+    return <LoginView onLogin={handleLogin} />;
+  }
 
-  if (isLoadingAuth)
+  if (currentView === "DETAIL" && selectedMovie) {
     return (
-      <div className="min-h-screen bg-black text-white flex items-center justify-center">
-        Loading...
-      </div>
-    );
-
-  if (!isAuthenticated) return <LoginView onLogin={handleLogin} />;
-
-  if (selectedMovie) {
-    return (
-      <div className="min-h-screen bg-gray-950 text-white flex flex-col font-sans">
+      <div className="min-h-screen bg-gray-950 text-white flex flex-col font-sans animate-in fade-in duration-300">
         <MovieDetailView
           movie={selectedMovie}
-          onBack={closeMovie}
+          onBack={goToBrowse}
           currentUser={user}
         />
         <Footer />
@@ -97,61 +85,78 @@ function MovieApp() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-950 text-white flex flex-col font-sans">
+    <div className="min-h-screen bg-gray-950 text-white flex flex-col font-sans animate-in fade-in duration-300">
       <div className="grow">
         <Header username={user} onLogout={handleLogout} />
-        <div className="p-8 max-w-7xl mx-auto w-full">
+
+        <div className="p-8 md:p-12 max-w-7xl mx-auto w-full">
           <MovieList
             title="Trending Now"
             movies={trendingMovies}
-            onMovieClick={openMovie}
+            onMovieClick={(id) => {
+              const m = MOVIE_DB.find((movie) => movie.id === id);
+              if (m) goToMovieDetail(m);
+            }}
           />
           <MovieList
             title="Sci-Fi & Cyberpunk"
             movies={scifiMovies}
-            onMovieClick={openMovie}
+            onMovieClick={(id) => {
+              const m = MOVIE_DB.find((movie) => movie.id === id);
+              if (m) goToMovieDetail(m);
+            }}
           />
           <MovieList
             title="Horror & Thriller"
             movies={horrorMovies}
-            onMovieClick={openMovie}
+            onMovieClick={(id) => {
+              const m = MOVIE_DB.find((movie) => movie.id === id);
+              if (m) goToMovieDetail(m);
+            }}
           />
           <MovieList
             title="Animated Masterpieces"
             movies={animationMovies}
-            onMovieClick={openMovie}
+            onMovieClick={(id) => {
+              const m = MOVIE_DB.find((movie) => movie.id === id);
+              if (m) goToMovieDetail(m);
+            }}
           />
           <MovieList
             title="Laugh Out Loud"
             movies={comedyMovies}
-            onMovieClick={openMovie}
+            onMovieClick={(id) => {
+              const m = MOVIE_DB.find((movie) => movie.id === id);
+              if (m) goToMovieDetail(m);
+            }}
           />
           <MovieList
             title="High Octane Action"
             movies={actionMovies}
-            onMovieClick={openMovie}
+            onMovieClick={(id) => {
+              const m = MOVIE_DB.find((movie) => movie.id === id);
+              if (m) goToMovieDetail(m);
+            }}
           />
           <MovieList
             title="Romance & Drama"
             movies={romanceMovies}
-            onMovieClick={openMovie}
+            onMovieClick={(id) => {
+              const m = MOVIE_DB.find((movie) => movie.id === id);
+              if (m) goToMovieDetail(m);
+            }}
           />
         </div>
       </div>
       <Footer />
     </div>
   );
-}
-const Page = () => {
-  return (
-    <Suspense
-      fallback={
-        <div className="text-white p-10 bg-gray-950 h-screen">Loading...</div>
-      }
-    >
-      <MovieApp />
-    </Suspense>
-  );
 };
 
-export default Page;
+export default function Page() {
+  return (
+    <NavigationProvider>
+      <NotflixApp />
+    </NavigationProvider>
+  );
+}
