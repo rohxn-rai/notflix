@@ -12,14 +12,24 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row justify-between items-center md:items-start gap-8 mb-12">
           {/* Brand & Socials */}
           <div className="flex flex-col items-center md:items-start gap-4">
-            <h2 className="text-2xl font-black text-red-600 tracking-tighter">
-              NOT-FLIX
-            </h2>
+            <div className="flex flex-col gap-2">
+              <h2 className="text-2xl font-black text-red-600 tracking-tighter">
+                NOT-FLIX
+              </h2>
+
+              <h4 className="text-gray-500">Headline</h4>
+            </div>
             <div className="flex gap-4">
               {/* Actual Social Icons */}
               <SocialIcon icon={FaXTwitter} href="#" />
               <SocialIcon icon={FaInstagram} href="#" />
               <SocialIcon icon={FaFacebook} href="#" />
+              <button
+                className="bg-amber-700 px-4 py-1.5 rounded-md"
+                type="submit"
+              >
+                Submit
+              </button>
             </div>
           </div>
 
