@@ -18,7 +18,7 @@ const NavigationContext = createContext<NavigationContextType | undefined>(
 );
 
 export const NavigationProvider = ({ children }: { children: ReactNode }) => {
-  const [currentView, setCurrentView] = useState<ViewState>("LOGIN");
+  const [currentView, setCurrentView] = useState<ViewState>("BROWSE");
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
 
   const goToBrowse = () => {
