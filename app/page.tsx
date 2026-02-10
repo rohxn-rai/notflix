@@ -26,10 +26,9 @@ const NotflixApp = () => {
 
     if (cookieUser) {
       setUser(cookieUser);
-      goToBrowse();
-    } else {
-      goToLogin();
     }
+
+    goToBrowse();
   }, []);
 
   const handleLogin = (username: string, isGuest: boolean) => {
@@ -41,7 +40,6 @@ const NotflixApp = () => {
     goToBrowse();
   };
 
-  // 3. Handle Logout Action
   const handleLogout = () => {
     document.cookie =
       "notflix_user=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
