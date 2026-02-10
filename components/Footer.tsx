@@ -6,15 +6,13 @@ import { FaXTwitter, FaFacebook, FaInstagram } from "react-icons/fa6";
 
 const Footer = () => {
   return (
-    <footer className="bg-black text-white py-12 border-t border-gray-800 mt-auto">
+    <footer className="bg-black text-white py-12 border-t border-gray-800 mt-12">
       <div className="max-w-6xl mx-auto px-6">
-        {/* Top Section: Links & Socials */}
         <div className="flex flex-col md:flex-row justify-between items-center md:items-start gap-8 mb-12">
-          {/* Brand & Socials */}
           <div className="flex flex-col items-center md:items-start gap-4">
             <div className="flex flex-col gap-2">
               <h2 className="text-2xl font-black text-red-600 tracking-tighter">
-                NOT-FLIX
+                NOTFLIX
               </h2>
 
               <h4 className="text-gray-500">Headline</h4>
@@ -55,7 +53,7 @@ const Footer = () => {
 
         {/* Bottom Section: Disclaimer & Copy */}
         <div className="text-center">
-          <p className="text-[10px] text-gray-600 uppercase tracking-widest font-mono mb-2">
+          <p className="text-xs text-gray-600 uppercase tracking-widest font-mono mb-2">
             these movie data is just a mock data and it does not represent where
             the actual movie stands.
           </p>
