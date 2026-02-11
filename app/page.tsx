@@ -1,5 +1,7 @@
 "use client";
 
+export const dynamic = "force-dynamic";
+
 import { useState, useEffect } from "react";
 import { NavigationProvider, useNavigation } from "@/context/NavigationContext";
 import { MOVIE_DB } from "@/data/movies";
@@ -13,7 +15,7 @@ const NotflixApp = () => {
   const { currentView, selectedMovie, goToBrowse, goToLogin, goToMovieDetail } =
     useNavigation();
 
-  const [user, setUser] = useState<string>("");
+  const [user, setUser] = useState<string>("Guest");
 
   useEffect(() => {
     const getCookie = (name: string) => {
@@ -71,7 +73,7 @@ const NotflixApp = () => {
 
   if (currentView === "DETAIL" && selectedMovie) {
     return (
-      <div className="min-h-screen bg-gray-950 text-white flex flex-col font-sans animate-in fade-in duration-300">
+      <div className="min-h-screen bg-gray-950 text-white flex flex-col animate-in fade-in duration-300">
         <MovieDetailView
           movie={selectedMovie}
           onBack={goToBrowse}
@@ -83,7 +85,7 @@ const NotflixApp = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-950 text-white flex flex-col font-sans animate-in fade-in duration-300">
+    <div className="min-h-screen bg-gray-950 text-white flex flex-col animate-in fade-in duration-300">
       <div className="grow">
         <Header username={user} onLogout={handleLogout} />
 
