@@ -27,7 +27,7 @@ const MovieCard = ({ movie, onClick }: MovieCardProps) => {
             src={movie.imageUrl}
             alt={movie.title}
             fill
-            loading="lazy"
+            loading="eager"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
             className="object-cover z-10 opacity-80 group-hover/card:opacity-100 group-hover/card:scale-105 transition-all duration-500"
             onError={() => setImageError(true)}

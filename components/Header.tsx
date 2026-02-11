@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 interface HeaderProps {
@@ -11,9 +12,11 @@ const Header = ({ username = "Guest", onLogout }: HeaderProps) => {
   return (
     <header className="py-8 mb-12 border-b border-gray-800 sticky top-0 z-50 bg-black/95 backdrop-blur-md supports-backdrop-filter:bg-black/50">
       <div className="flex flex-row justify-between items-center mx-auto max-w-7xl w-full px-6">
-        <h1 className="text-4xl font-black text-red-600 tracking-tighter cursor-pointer hover:scale-105 transition-transform">
-          NOTFLIX
-        </h1>
+        <Link href="/">
+          <h1 className="text-4xl font-black text-red-600 tracking-tighter cursor-pointer hover:scale-105 transition-transform">
+            NOTFLIX
+          </h1>
+        </Link>
 
         <div className="flex items-center gap-4">
           <div className="text-sm text-gray-300 font-mono hidden md:block">

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Movie } from "@/data/movies";
 import MovieCard from "@/components/MovieCard";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
@@ -80,7 +80,7 @@ const MovieList = ({ title, movies, onMovieClick }: MovieListProps) => {
           <FaChevronLeft size={24} className="text-white" />
         </button>
 
-        <div className="overflow-hidden -mx-2">
+        <div className="overflow-hidden mx-2">
           <div
             className="flex will-change-transform"
             style={{
