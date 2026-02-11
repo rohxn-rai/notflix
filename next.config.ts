@@ -10,6 +10,8 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  allowedDevOrigins: ["10.43.45.242"],
+  reactStrictMode: true,
 };
 
 export default nextConfig;
