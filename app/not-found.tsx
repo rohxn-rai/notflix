@@ -1,11 +1,15 @@
+import Link from "next/link";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import Link from "next/link";
+import { cookies } from "next/headers";
 
-const NotFound = () => {
+const NotFound = async () => {
+  const cookieStore = await cookies();
+  const userCookie = cookieStore.get("notflix_user");
+  const currentUser = userCookie?.value || "Guest";
   return (
     <>
-      <Header />
+      <Header username={currentUser} />
       <main className="min-h-[65vh] w-full bg-[#141414] text-white flex flex-col items-center justify-center text-center px-4 relative overflow-hidden">
         <div className="absolute inset-0 bg-linear-to-b from-black/60 to-[#141414] z-0 pointer-events-none"></div>
 
@@ -21,6 +25,7 @@ const NotFound = () => {
 
           <Link
             href="/"
+            replace
             className="inline-block bg-white text-black font-bold py-3 px-8 rounded hover:bg-[#c0c0c0] transition-colors duration-200"
           >
             Notflix Home
