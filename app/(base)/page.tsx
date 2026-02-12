@@ -30,6 +30,7 @@ const LandingPage = async () => {
       <Header username={username} />
 
       <main className="p-8 md:p-12 max-w-7xl mx-auto w-full">
+        <div id="hero-banner" />
         <MovieList title="Trending Now" movies={trendingMovies} />
         <MovieList title="Sci-Fi & Cyberpunk" movies={getMovies("Sci-Fi")} />
         <MovieList title="Horror & Thriller" movies={getMovies("Horror")} />

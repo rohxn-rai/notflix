@@ -12,7 +12,6 @@ interface PageProps {
 const MoviePage = async ({ params }: PageProps) => {
   const { id } = await params;
 
-  console.log(id);
   const movie = MOVIE_DB.find((m) => m.id === id);
 
   if (!movie) {

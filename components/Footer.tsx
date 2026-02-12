@@ -6,7 +6,7 @@ import { FaXTwitter, FaFacebook, FaInstagram } from "react-icons/fa6";
 
 const Footer = () => {
   return (
-    <footer className="bg-black text-white py-12 border-t border-gray-800 mt-12">
+    <footer className="bg-black text-white py-12 border-t border-gray-800">
       <div className="max-w-6xl mx-auto px-6">
         <div className="flex flex-col md:flex-row justify-between items-center md:items-start gap-8 mb-12">
           <div className="flex flex-col items-center md:items-start gap-4">
@@ -18,7 +18,6 @@ const Footer = () => {
               <h4 className="text-gray-500">Headline</h4>
             </div>
             <div className="flex gap-4">
-              {/* Actual Social Icons */}
               <SocialIcon icon={FaXTwitter} href="#" />
               <SocialIcon icon={FaInstagram} href="#" />
               <SocialIcon icon={FaFacebook} href="#" />
