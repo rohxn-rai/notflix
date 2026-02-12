@@ -1,20 +1,18 @@
+"use client";
+
 import { useState } from "react";
 import { Movie } from "@/data/movies";
 import Image from "next/image";
 
 interface MovieCardProps {
   movie: Movie;
-  onClick: (id: string) => void;
 }
 
-const MovieCard = ({ movie, onClick }: MovieCardProps) => {
+const MovieCard = ({ movie }: MovieCardProps) => {
   const [imageError, setImageError] = useState(false);
 
   return (
-    <div
-      onClick={() => onClick(movie.id)}
-      className="group/card cursor-pointer bg-gray-900 rounded-xl overflow-hidden hover:-translate-y-2 hover:shadow-2xl hover:shadow-red-900/20 transition-all duration-300 border border-gray-800 h-full flex flex-col"
-    >
+    <div className="group/card cursor-pointer bg-gray-900 rounded-xl overflow-hidden hover:-translate-y-2 hover:shadow-2xl hover:shadow-red-900/20 transition-all duration-300 border border-gray-800 h-full flex flex-col">
       <div
         className={`h-56 w-full relative ${movie.color} shrink-0 flex items-center justify-center overflow-hidden`}
       >

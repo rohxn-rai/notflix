@@ -75,8 +75,7 @@ const SocialIcon = ({
 }) => (
   <Link
     href={href}
-    target="_blank"
-    rel="noopener noreferrer"
+    replace
     className="bg-gray-800 p-2 rounded-full hover:bg-white hover:text-black transition-all cursor-pointer group flex items-center justify-center"
   >
     <Icon size={20} className="text-gray-400 group-hover:text-black" />
@@ -90,7 +89,7 @@ const FooterLink = ({
   href: string;
   children: React.ReactNode;
 }) => (
-  <Link href={href} className="hover:text-red-500 transition-colors">
+  <Link href={href} replace className="hover:text-red-500 transition-colors">
     {children}
   </Link>
 );

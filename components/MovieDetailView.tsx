@@ -1,20 +1,21 @@
+"use client";
+
+import Link from "next/link";
 import { useState } from "react";
 import { Movie, Review } from "@/data/movies";
 import Image from "next/image";
-import { FaStar, FaRegStar } from "react-icons/fa6";
+import { FaStar, FaRegStar, FaArrowLeft } from "react-icons/fa6";
 
 interface MovieDetailViewProps {
   movie: Movie;
-  onBack: () => void;
   currentUser?: string;
 }
 
 const MovieDetailView = ({
   movie,
-  onBack,
-  currentUser,
+  currentUser = "Guest",
 }: MovieDetailViewProps) => {
-  const [reviews, setReviews] = useState<Review[]>(movie.reviews);
+  const [reviews, setReviews] = useState<Review[]>(movie.reviews || []);
   const [newRating, setNewRating] = useState(5);
   const [newComment, setNewComment] = useState("");
   const [imageError, setImageError] = useState(false);
@@ -27,7 +28,7 @@ const MovieDetailView = ({
 
     const newReview: Review = {
       id: Date.now().toString(),
-      user: currentUser!,
+      user: currentUser,
       comment: newComment,
       rating: newRating,
     };
@@ -39,45 +40,49 @@ const MovieDetailView = ({
 
   return (
     <div className="min-h-screen bg-gray-950 text-white relative isolate">
-      <div className="fixed inset-0 w-full h-[70vh] z-0">
+      <div className="absolute top-0 left-0 right-0 h-screen z-0">
         {!imageError && (
           <Image
             src={movie.imageUrl}
             alt={movie.title}
             fill
-            className="object-cover opacity-40"
+            className="object-cover opacity-65"
             onError={() => setImageError(true)}
             priority
           />
         )}
         {imageError && <div className={`w-full h-full ${movie.color}`} />}
-        <div className="absolute inset-0 bg-linear-to-t from-gray-950 via-gray-950/60 to-transparent"></div>
+
+        <div className="absolute inset-0 bg-linear-to-t from-gray-950 via-gray-950/40 to-black/30"></div>
       </div>
 
-      <button
-        onClick={onBack}
-        className="fixed top-6 left-6 z-50 bg-black/60 backdrop-blur-md px-6 py-2 rounded-full hover:bg-white hover:text-black transition-all font-bold border border-white/10 group"
+      <Link
+        href="/"
+        replace
+        className="fixed top-32 left-6 z-50 bg-black/60 backdrop-blur-md px-6 py-3 rounded-full hover:bg-white hover:text-black transition-all font-bold border border-white/10 group flex items-center gap-2"
       >
-        <span className="group-hover:-translate-x-1 inline-block transition-transform">
-          ←
-        </span>{" "}
+        <FaArrowLeft className="group-hover:-translate-x-1 transition-transform" />
         Back
-      </button>
+      </Link>
 
-      <div className="relative z-10 flex flex-col pt-[50vh] px-4 md:px-16 pb-16">
-        <div className="max-w-4xl mx-auto w-full mb-8">
-          <span className="bg-red-600/90 backdrop-blur text-white px-3 py-1 rounded text-sm font-bold tracking-wider uppercase mb-4 inline-block shadow-lg">
-            {movie.category}
-          </span>
+      <div className="relative z-10 flex flex-col pt-[45vh] px-4 pb-24">
+        <div className="max-w-4xl mx-auto w-full mb-8 animate-in slide-in-from-bottom-10 fade-in duration-700">
+          <div className="flex items-center gap-3 mb-4">
+            <span className="bg-red-600/90 backdrop-blur text-white px-3 py-1 rounded text-sm font-bold tracking-wider uppercase shadow-lg">
+              {movie.category}
+            </span>
+          </div>
           <h1 className="text-5xl md:text-7xl font-black mt-2 leading-tight drop-shadow-2xl">
             {movie.title}
           </h1>
         </div>
 
-        <div className="bg-gray-900/80 backdrop-blur-xl p-8 md:p-12 rounded-3xl border border-white/10 shadow-2xl max-w-4xl mx-auto w-full">
+        <div className="bg-gray-900/80 backdrop-blur-xl p-8 md:p-12 rounded-3xl border border-white/10 shadow-2xl max-w-4xl mx-auto w-full animate-in slide-in-from-bottom-20 fade-in duration-1000 delay-100">
           <section className="mb-12">
-            <h2 className="text-2xl font-bold mb-4 text-gray-100">Synopsis</h2>
-            <p className="text-gray-300 text-lg leading-relaxed font-light border-l-4 border-red-600 pl-4">
+            <h2 className="text-2xl font-bold mb-4 text-gray-100 flex items-center gap-2">
+              Synopsis
+            </h2>
+            <p className="text-gray-300 text-lg leading-relaxed font-light border-l-4 border-red-600 pl-6 py-1">
               {movie.synopsis}
             </p>
           </section>
@@ -94,7 +99,7 @@ const MovieDetailView = ({
                       key={star}
                       type="button"
                       onClick={() => setNewRating(star)}
-                      className="text-2xl focus:outline-none transition-transform hover:scale-110"
+                      className="text-2xl focus:outline-none transition-transform hover:scale-110 active:scale-95"
                     >
                       {star <= newRating ? (
                         <FaStar className="text-yellow-500" />
@@ -108,13 +113,13 @@ const MovieDetailView = ({
                   value={newComment}
                   onChange={(e) => setNewComment(e.target.value)}
                   placeholder={`What did you think, ${currentUser}?`}
-                  className="w-full bg-gray-800 text-white rounded-lg p-4 border border-gray-700 focus:border-red-600 focus:ring-1 focus:ring-red-600 outline-none transition-all resize-none h-24"
+                  className="w-full bg-gray-800 text-white rounded-lg p-4 border border-gray-700 focus:border-red-600 focus:ring-1 focus:ring-red-600 outline-none transition-all resize-none h-28 placeholder-gray-500"
                   required
                 />
                 <div className="mt-4 flex justify-end">
                   <button
                     type="submit"
-                    className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-6 rounded-lg transition-colors"
+                    className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-8 rounded-lg transition-colors shadow-lg shadow-red-900/20"
                   >
                     Post Review
                   </button>
@@ -124,44 +129,60 @@ const MovieDetailView = ({
           ) : (
             <div className="mb-12 p-6 rounded-xl border border-gray-700 bg-gray-800/50 text-center">
               <p className="text-gray-400 italic">
-                Please <span className="text-red-500 font-bold">Sign In</span>{" "}
-                to leave a review. Guests are in read-only mode.
+                Please{" "}
+                <Link
+                  href="/login"
+                  replace
+                  className="text-red-500 font-bold hover:underline"
+                >
+                  Sign In
+                </Link>{" "}
+                to leave a review.
               </p>
             </div>
           )}
 
           <section>
-            <h2 className="text-2xl font-bold mb-6 border-b border-gray-700 pb-2 flex items-center gap-2">
-              User Reviews{" "}
-              <span className="text-sm font-normal text-gray-500 bg-gray-950 px-2 py-0.5 rounded-full">
+            <h2 className="text-2xl font-bold mb-6 border-b border-gray-700 pb-4 flex items-center gap-3">
+              User Reviews
+              <span className="text-sm font-bold text-gray-300 bg-gray-800 px-2 py-1 rounded-md">
                 {reviews.length}
               </span>
             </h2>
-            <div className="space-y-4">
-              {reviews.map((review) => (
-                <div
-                  key={review.id}
-                  className="bg-gray-950/50 p-6 rounded-xl border border-gray-700/50 hover:border-gray-600 transition-colors"
-                >
-                  <div className="flex justify-between mb-2 items-center">
-                    <span className="font-bold text-red-400">
-                      {review.user}
-                    </span>
-                    <div className="flex text-yellow-500 text-sm">
-                      {[...Array(5)].map((_, i) => (
-                        <span key={i}>
-                          {i < review.rating ? (
-                            "★"
-                          ) : (
-                            <span className="text-gray-700">★</span>
-                          )}
-                        </span>
-                      ))}
+
+            <div className="space-y-4 max-h-125 overflow-y-auto pr-2 custom-scrollbar">
+              {reviews.length > 0 ? (
+                reviews.map((review) => (
+                  <div
+                    key={review.id}
+                    className="bg-gray-950/50 p-6 rounded-xl border border-gray-700/50 hover:border-gray-600 transition-colors"
+                  >
+                    <div className="flex justify-between mb-3 items-center">
+                      <span className="font-bold text-red-400 text-lg">
+                        {review.user}
+                      </span>
+                      <div className="flex text-yellow-500 text-sm gap-0.5">
+                        {[...Array(5)].map((_, i) => (
+                          <span key={i}>
+                            {i < review.rating ? (
+                              <FaStar />
+                            ) : (
+                              <FaRegStar className="text-gray-700" />
+                            )}
+                          </span>
+                        ))}
+                      </div>
                     </div>
+                    <p className="text-gray-300 font-light leading-relaxed">
+                      "{review.comment}"
+                    </p>
                   </div>
-                  <p className="text-gray-300 italic">"{review.comment}"</p>
+                ))
+              ) : (
+                <div className="text-center text-gray-500 py-8">
+                  No reviews yet. Be the first to share your thoughts!
                 </div>
-              ))}
+              )}
             </div>
           </section>
         </div>

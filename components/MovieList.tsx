@@ -1,3 +1,6 @@
+"use client";
+
+import Link from "next/link";
 import { useState, useEffect } from "react";
 import { Movie } from "@/data/movies";
 import MovieCard from "@/components/MovieCard";
@@ -6,10 +9,9 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 interface MovieListProps {
   title: string;
   movies: Movie[];
-  onMovieClick: (id: string) => void;
 }
 
-const MovieList = ({ title, movies, onMovieClick }: MovieListProps) => {
+const MovieList = ({ title, movies }: MovieListProps) => {
   const [index, setIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
@@ -47,12 +49,15 @@ const MovieList = ({ title, movies, onMovieClick }: MovieListProps) => {
     return () => clearTimeout(timeout);
   }, [index, totalSlides, isTransitioning]);
 
+  if (!movies || movies.length === 0) return null;
+
   return (
     <section className="mb-12 group/list relative">
       <div className="flex items-center justify-between mb-4 px-1">
         <h2 className="text-2xl font-bold text-gray-100 border-l-4 border-red-600 pl-3">
           {title}
         </h2>
+
         <div className="hidden md:flex gap-1">
           {movies.map(
             (_, i) =>
@@ -97,7 +102,13 @@ const MovieList = ({ title, movies, onMovieClick }: MovieListProps) => {
                 key={`${movie.id}-${i}`}
                 className={`w-1/4 shrink-0 px-2 flex ${isTransitioning ? "pointer-events-none" : ""}`}
               >
-                <MovieCard movie={movie} onClick={onMovieClick} />
+                <Link
+                  href={`/movie/${movie.id}`}
+                  replace
+                  className="w-full block h-full"
+                >
+                  <MovieCard movie={movie} />
+                </Link>
               </div>
             ))}
           </div>
