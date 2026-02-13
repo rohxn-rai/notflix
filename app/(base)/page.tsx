@@ -3,7 +3,6 @@ import { MOVIE_DB } from "@/data/movies";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MovieList from "@/components/MovieList";
-import AdobeTargetMbox from "@/components/AdobeTargetMbox";
 
 export const dynamic = "force-dynamic";
 
@@ -31,12 +30,7 @@ const LandingPage = async () => {
       <Header username={username} />
 
       <main className="p-8 md:p-12 max-w-7xl mx-auto w-full">
-        <AdobeTargetMbox
-          mbox="hero-barcode"
-          params={{ param1: "value1", param2: "value2" }}
-        >
-          default content to replace by offer
-        </AdobeTargetMbox>
+        <div className="mboxDefault" id="mbox-maybe" data-id="mbox-maybe" />
         <MovieList title="Trending Now" movies={trendingMovies} />
         <MovieList title="Sci-Fi & Cyberpunk" movies={getMovies("Sci-Fi")} />
         <MovieList title="Horror & Thriller" movies={getMovies("Horror")} />

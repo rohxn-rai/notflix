@@ -21,16 +21,15 @@ const Footer = () => {
               <SocialIcon icon={FaXTwitter} href="#" />
               <SocialIcon icon={FaInstagram} href="#" />
               <SocialIcon icon={FaFacebook} href="#" />
-              <button
-                className="bg-amber-700 px-4 py-1.5 rounded-md"
-                type="submit"
-              >
-                Submit
-              </button>
             </div>
           </div>
 
-          {/* Link Columns */}
+          <div
+            className="mbox-footer-stuff"
+            id="mbox-footer-stuff"
+            data-id="mbox-footer-stuff"
+          />
+
           <div className="flex gap-12 text-sm text-gray-400">
             <div className="flex flex-col gap-3 text-center md:text-left">
               <span className="font-bold text-gray-200">Company</span>
