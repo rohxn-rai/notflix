@@ -29,7 +29,7 @@ const LandingPage = async () => {
     <>
       <Header username={username} />
 
-      <main className="p-8 md:p-12 max-w-7xl mx-auto w-full">
+      <main className="p-12 max-w-7xl mx-auto w-full flex flex-col gap-12 mb-12">
         <div className="mboxDefault" id="mbox-maybe" data-id="mbox-maybe" />
         <MovieList title="Trending Now" movies={trendingMovies} />
         <MovieList title="Sci-Fi & Cyberpunk" movies={getMovies("Sci-Fi")} />

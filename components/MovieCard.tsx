@@ -22,6 +22,7 @@ const MovieCard = ({ movie }: MovieCardProps) => {
 
         {!imageError && (
           <Image
+            id={`image_${movie.title}`}
             src={movie.imageUrl}
             alt={movie.title}
             fill
@@ -37,14 +38,25 @@ const MovieCard = ({ movie }: MovieCardProps) => {
 
       <div className="p-6 relative z-30 bg-gray-900 grow flex flex-col">
         <div className="flex justify-between items-start mb-2">
-          <h3 className="font-bold text-lg group-hover/card:text-red-400 transition-colors line-clamp-1">
+          <h3
+            id={`title_${movie.title}`}
+            className="font-bold text-lg group-hover/card:text-red-400 transition-colors line-clamp-1"
+          >
             {movie.title}
           </h3>
-          <span className="text-[10px] bg-gray-800 px-2 py-1 rounded text-gray-400 border border-gray-700 whitespace-nowrap ml-2">
+          <span
+            id={`category_${movie.title}`}
+            className="text-[10px] bg-gray-800 px-2 py-1 rounded text-gray-400 border border-gray-700 whitespace-nowrap ml-2"
+          >
             {movie.category}
           </span>
         </div>
-        <p className="text-sm text-gray-500 line-clamp-3">{movie.synopsis}</p>
+        <p
+          id={`synopsis_${movie.title}`}
+          className="text-sm text-gray-500 line-clamp-3"
+        >
+          {movie.synopsis}
+        </p>
       </div>
     </div>
   );
