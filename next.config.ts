@@ -10,7 +10,9 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  allowedDevOrigins: ["10.43.45.242"],
+  allowedDevOrigins: [
+    ...(process.env.LOCALDEVURL ? [process.env.LOCALDEVURL] : []),
+  ],
   reactStrictMode: true,
 };
 
