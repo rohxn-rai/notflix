@@ -47,8 +47,8 @@ const MovieList = ({ title, movies }: MovieListProps) => {
   const isAtStart = currentIndex === 0;
 
   return (
-    <section className="mb-12 group/list relative">
-      <div className="flex items-center justify-between mb-4 px-1">
+    <section className="group/list relative">
+      <div className="flex items-center justify-between mb-4">
         <h2
           id={`category_title_${title}`}
           className="text-2xl font-bold text-gray-100 border-l-4 border-red-600 pl-3"
