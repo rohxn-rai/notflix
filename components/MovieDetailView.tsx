@@ -77,8 +77,8 @@ const MovieDetailView = ({
           </h1>
         </div>
 
-        <div className="bg-gray-900/80 backdrop-blur-xl p-8 md:p-12 rounded-3xl border border-white/10 shadow-2xl max-w-4xl mx-auto w-full animate-in slide-in-from-bottom-20 fade-in duration-1000 delay-100">
-          <section className="mb-12">
+        <div className="flex flex-col gap-12 bg-gray-900/80 backdrop-blur-xl p-12 rounded-3xl border border-white/10 shadow-2xl max-w-4xl mx-auto w-full animate-in slide-in-from-bottom-20 fade-in duration-1000 delay-100">
+          <section>
             <h2 className="text-2xl font-bold mb-4 text-gray-100 flex items-center gap-2">
               Synopsis
             </h2>
@@ -88,7 +88,7 @@ const MovieDetailView = ({
           </section>
 
           {canComment ? (
-            <section className="mb-12 bg-black/40 p-6 rounded-xl border border-gray-700">
+            <section className="bg-black/40 p-6 rounded-xl border border-gray-700">
               <h3 className="text-xl font-bold mb-4 text-white">
                 Leave a Review
               </h3>
@@ -127,7 +127,7 @@ const MovieDetailView = ({
               </form>
             </section>
           ) : (
-            <div className="mb-12 p-6 rounded-xl border border-gray-700 bg-gray-800/50 text-center">
+            <section className="p-6 rounded-xl border border-gray-700 bg-gray-800/50 text-center">
               <p className="text-gray-400 italic">
                 Please{" "}
                 <Link
@@ -139,7 +139,7 @@ const MovieDetailView = ({
                 </Link>{" "}
                 to leave a review.
               </p>
-            </div>
+            </section>
           )}
 
           <section>
@@ -184,6 +184,10 @@ const MovieDetailView = ({
                 </div>
               )}
             </div>
+          </section>
+
+          <section>
+            <div className="mboxDefault" id="mbox-maybe" data-id="mbox-maybe" />
           </section>
         </div>
       </div>

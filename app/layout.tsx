@@ -54,7 +54,7 @@ const RootLayout = ({
         </Script>
         <Script
           id="adobe-launch"
-          src="https://assets.adobedtm.com/6a203c8a0ff8/82fb541a8be9/launch-45de2beee146-development.min.js"
+          src="https://assets.adobedtm.com/6a203c8a0ff8/bc24c6001550/launch-75c76c716733-development.min.js"
           async
         />
         <Script id="target-params">

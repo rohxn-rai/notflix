@@ -16,22 +16,28 @@ const MovieCard = ({ movie }: MovieCardProps) => {
       <div
         className={`h-56 w-full relative ${movie.color} shrink-0 flex items-center justify-center overflow-hidden`}
       >
-        <span className="text-4xl font-black text-white/20 group-hover/card:text-white/40 transition-colors absolute z-0">
-          {movie.title.substring(0, 2).toUpperCase()}
-        </span>
-
-        {!imageError && (
-          <Image
-            id={`image_${movie.title}`}
-            src={movie.imageUrl}
-            alt={movie.title}
-            fill
-            loading="eager"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-            className="object-cover z-10 opacity-80 group-hover/card:opacity-100 group-hover/card:scale-105 transition-all duration-500"
-            onError={() => setImageError(true)}
-          />
-        )}
+        <div
+          className="mboxDefault relative h-full w-full"
+          id={`mbox-movie-${movie.id}`}
+          data-mbox="movie-card-offer"
+          data-movieid={movie.id}
+        >
+          {imageError ? (
+            <span className="text-4xl font-black text-white/20 group-hover/card:text-white/40 transition-colors absolute z-0">
+              {movie.title.substring(0, 2).toUpperCase()}
+            </span>
+          ) : (
+            <Image
+              src={movie.imageUrl}
+              alt={movie.title}
+              fill
+              sizes="10"
+              loading="eager"
+              className="object-cover z-10 opacity-80 group-hover/card:opacity-100 group-hover/card:scale-105 transition-all duration-500"
+              onError={() => setImageError(true)}
+            />
+          )}
+        </div>
 
         <div className="absolute inset-0 bg-linear-to-t from-gray-900 via-transparent to-transparent z-20"></div>
       </div>

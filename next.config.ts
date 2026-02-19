@@ -10,9 +10,9 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  allowedDevOrigins: [
-    ...(process.env.LOCALDEVURL ? [process.env.LOCALDEVURL] : []),
-  ],
+  allowedDevOrigins: process.env.LOCALDEVURL
+    ? JSON.parse(process.env.LOCALDEVURL)
+    : [],
   reactStrictMode: true,
 };
 

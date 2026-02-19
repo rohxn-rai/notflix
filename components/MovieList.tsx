@@ -72,6 +72,7 @@ const MovieList = ({ title, movies }: MovieListProps) => {
               <div key={movie.id} className="w-1/4 shrink-0 grow-0 px-2 flex">
                 <Link
                   href={`/movie/${movie.id}`}
+                  replace
                   className="w-full block h-full"
                 >
                   <MovieCard movie={movie} />
