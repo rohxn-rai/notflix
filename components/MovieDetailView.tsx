@@ -187,7 +187,11 @@ const MovieDetailView = ({
           </section>
 
           <section>
-            <div className="mboxDefault" id="mbox-maybe" data-id="mbox-maybe" />
+            <div
+              className="mboxDefault"
+              id="mbox-bad-offer"
+              data-id="mbox-bad-offer"
+            />
           </section>
         </div>
       </div>
