@@ -3,16 +3,16 @@
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
-import { Movie } from "@/data/movies";
 import MovieCard from "@/components/MovieCard";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
+import { MovieProps } from "@/types/movies";
 
-interface MovieListProps {
+interface MovieListComponentProps {
   title: string;
-  movies: Movie[];
+  movies: MovieProps[];
 }
 
-const MovieList = ({ title, movies }: MovieListProps) => {
+const MovieList = ({ title, movies }: MovieListComponentProps) => {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "start",
     loop: true,
@@ -69,9 +69,12 @@ const MovieList = ({ title, movies }: MovieListProps) => {
         <div className="overflow-hidden mx-2" ref={emblaRef}>
           <div className="flex will-change-transform backface-hidden">
             {movies.map((movie) => (
-              <div key={movie.id} className="w-1/4 shrink-0 grow-0 px-2 flex">
+              <div
+                key={movie.entity_id}
+                className="w-1/4 shrink-0 grow-0 px-2 flex"
+              >
                 <Link
-                  href={`/movie/${movie.id}`}
+                  href={`/movie/${movie.entity_id}`}
                   replace
                   className="w-full block h-full"
                 >
