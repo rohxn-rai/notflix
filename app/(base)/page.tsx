@@ -1,8 +1,9 @@
 import { cookies } from "next/headers";
-import { MOVIE_DB } from "@/data/movies";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MovieList from "@/components/MovieList";
+import { neon } from "@neondatabase/serverless";
+import { MovieCategory, MovieProps } from "@/types/movies";
 
 export const dynamic = "force-dynamic";
 
@@ -12,18 +13,43 @@ const LandingPage = async () => {
 
   const username = userCookie?.value || "Guest";
 
-  const getMovies = (cat: string) => MOVIE_DB.filter((m) => m.category === cat);
+  const sql = neon(process.env.DATABASE_URL!);
+
+  const getMoviesByCategory = async (
+    categoryId: MovieCategory,
+  ): Promise<MovieProps[]> => {
+    try {
+      const result: MovieProps[] = (await sql`
+      SELECT * FROM movies 
+      WHERE "entity_categoryid" = ${categoryId}`) as MovieProps[];
+      return result;
+    } catch (error) {
+      console.error(`Error fetching movies for category ${categoryId}:`, error);
+      return [];
+    }
+  };
+
+  const [sciFi, horror, animation, comedy, action, romance] = await Promise.all(
+    [
+      getMoviesByCategory("Sci-Fi"),
+      getMoviesByCategory("Horror"),
+      getMoviesByCategory("Animation"),
+      getMoviesByCategory("Comedy"),
+      getMoviesByCategory("Action"),
+      getMoviesByCategory("Romance"),
+    ],
+  );
 
   const trendingMovies = [
-    getMovies("Horror")[0],
-    getMovies("Sci-Fi")[0],
-    getMovies("Animation")[7],
-    getMovies("Action")[1],
-    getMovies("Romance")[1],
-    getMovies("Action")[0],
-    getMovies("Comedy")[6],
-    getMovies("Animation")[0],
-  ].filter(Boolean);
+    horror[0],
+    sciFi[0],
+    animation[7],
+    action[1],
+    romance[1],
+    action[0],
+    comedy[6],
+    animation[0],
+  ];
 
   return (
     <>
@@ -33,16 +59,14 @@ const LandingPage = async () => {
         <section>
           <div className="mboxDefault" id="mbox-maybe" data-id="mbox-maybe" />
         </section>
+        {/* another MovieList with data that would come from Recommendation Activity */}
         <MovieList title="Trending Now" movies={trendingMovies} />
-        <MovieList title="Sci-Fi & Cyberpunk" movies={getMovies("Sci-Fi")} />
-        <MovieList title="Horror & Thriller" movies={getMovies("Horror")} />
-        <MovieList
-          title="Animated Masterpieces"
-          movies={getMovies("Animation")}
-        />
-        <MovieList title="Laugh Out Loud" movies={getMovies("Comedy")} />
-        <MovieList title="High Octane Action" movies={getMovies("Action")} />
-        <MovieList title="Romance & Drama" movies={getMovies("Romance")} />
+        <MovieList title="Sci-Fi & Cyberpunk" movies={sciFi} />
+        <MovieList title="Horror & Thriller" movies={horror} />
+        <MovieList title="High Octane Action" movies={action} />
+        <MovieList title="Animated Masterpieces" movies={animation} />
+        <MovieList title="Laugh Out Loud" movies={comedy} />
+        <MovieList title="Romance & Drama" movies={romance} />
       </main>
 
       <Footer />
