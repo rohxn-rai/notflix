@@ -2,20 +2,22 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Movie, Review } from "@/data/movies";
 import Image from "next/image";
 import { FaStar, FaRegStar, FaArrowLeft } from "react-icons/fa6";
+import { MovieProps, ReviewProps } from "@/types/movies";
 
 interface MovieDetailViewProps {
-  movie: Movie;
+  movie: MovieProps;
+  review: ReviewProps[];
   currentUser?: string;
 }
 
 const MovieDetailView = ({
   movie,
+  review,
   currentUser = "Guest",
 }: MovieDetailViewProps) => {
-  const [reviews, setReviews] = useState<Review[]>(movie.reviews || []);
+  const [reviews, setReviews] = useState<ReviewProps[]>(review || []);
   const [newRating, setNewRating] = useState(5);
   const [newComment, setNewComment] = useState("");
   const [imageError, setImageError] = useState(false);
@@ -26,11 +28,12 @@ const MovieDetailView = ({
     e.preventDefault();
     if (!canComment || !newComment.trim()) return;
 
-    const newReview: Review = {
-      id: Date.now().toString(),
-      user: currentUser,
-      comment: newComment,
-      rating: newRating,
+    const newReview: ReviewProps = {
+      review_id: Date.now().toString(),
+      entity_id: movie.entity_id,
+      user_name: currentUser,
+      review_content: newComment,
+      rating_score: newRating,
     };
 
     setReviews([newReview, ...reviews]);
@@ -39,19 +42,23 @@ const MovieDetailView = ({
   };
 
   return (
-    <div className="min-h-screen bg-gray-950 text-white relative isolate">
+    <div
+      className={`min-h-screen bg-gray-950 text-white relative isolate Movie_Detail_Page movie_detail_${movie.entity_id}`}
+    >
       <div className="absolute top-0 left-0 right-0 h-screen z-0">
         {!imageError && (
           <Image
-            src={movie.imageUrl}
-            alt={movie.title}
+            src={movie.entity_imageurl}
+            alt={movie.entity_name}
             fill
             className="object-cover opacity-65"
             onError={() => setImageError(true)}
             priority
           />
         )}
-        {imageError && <div className={`w-full h-full ${movie.color}`} />}
+        {imageError && (
+          <div className={`w-full h-full ${movie.entity_colorId}`} />
+        )}
 
         <div className="absolute inset-0 bg-linear-to-t from-gray-950 via-gray-950/40 to-black/30"></div>
       </div>
@@ -69,11 +76,11 @@ const MovieDetailView = ({
         <div className="max-w-4xl mx-auto w-full mb-8 animate-in slide-in-from-bottom-10 fade-in duration-700">
           <div className="flex items-center gap-3 mb-4">
             <span className="bg-red-600/90 backdrop-blur text-white px-3 py-1 rounded text-sm font-bold tracking-wider uppercase shadow-lg">
-              {movie.category}
+              {movie.entity_categoryid}
             </span>
           </div>
           <h1 className="text-5xl md:text-7xl font-black mt-2 leading-tight drop-shadow-2xl">
-            {movie.title}
+            {movie.entity_name}
           </h1>
         </div>
 
@@ -83,7 +90,7 @@ const MovieDetailView = ({
               Synopsis
             </h2>
             <p className="text-gray-300 text-lg leading-relaxed font-light border-l-4 border-red-600 pl-6 py-1">
-              {movie.synopsis}
+              {movie.entity_synopsis}
             </p>
           </section>
 
@@ -154,17 +161,17 @@ const MovieDetailView = ({
               {reviews.length > 0 ? (
                 reviews.map((review) => (
                   <div
-                    key={review.id}
+                    key={review.review_id}
                     className="bg-gray-950/50 p-6 rounded-xl border border-gray-700/50 hover:border-gray-600 transition-colors"
                   >
                     <div className="flex justify-between mb-3 items-center">
                       <span className="font-bold text-red-400 text-lg">
-                        {review.user}
+                        {review.user_name}
                       </span>
                       <div className="flex text-yellow-500 text-sm gap-0.5">
                         {[...Array(5)].map((_, i) => (
                           <span key={i}>
-                            {i < review.rating ? (
+                            {i < review.rating_score ? (
                               <FaStar />
                             ) : (
                               <FaRegStar className="text-gray-700" />
@@ -174,7 +181,7 @@ const MovieDetailView = ({
                       </div>
                     </div>
                     <p className="text-gray-300 font-light leading-relaxed">
-                      "{review.comment}"
+                      "{review.review_content}"
                     </p>
                   </div>
                 ))
