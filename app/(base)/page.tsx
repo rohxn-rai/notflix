@@ -55,11 +55,11 @@ const LandingPage = async () => {
     <>
       <Header username={username} />
 
-      <main className="p-12 max-w-7xl mx-auto w-full flex flex-col gap-12 mb-12">
-        <section>
+      <main className="p-12 max-w-7xl mx-auto w-full flex flex-col">
+        <section className="group/list relative mb-12">
           <div className="mboxDefault" id="mbox-maybe" data-id="mbox-maybe" />
         </section>
-        {/* another MovieList with data that would come from Recommendation Activity */}
+        <MovieList title="Recently Watched" movies={[]} />
         <MovieList title="Trending Now" movies={trendingMovies} />
         <MovieList title="Sci-Fi & Cyberpunk" movies={sciFi} />
         <MovieList title="Horror & Thriller" movies={horror} />

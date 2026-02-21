@@ -42,56 +42,61 @@ const MovieList = ({ title, movies }: MovieListComponentProps) => {
     emblaApi.on("reInit", onSelect);
   }, [emblaApi, onSelect]);
 
-  if (!movies || movies.length === 0) return null;
-
   const isAtStart = currentIndex === 0;
 
   return (
-    <section className="group/list relative">
-      <div className="flex items-center justify-between mb-4">
-        <h2
-          id={`category_title_${title}`}
-          className="text-2xl font-bold text-gray-100 border-l-4 border-red-600 pl-3"
-        >
-          {title}
-        </h2>
-      </div>
-
-      <div className="relative">
-        <button
-          onClick={scrollPrev}
-          disabled={isAtStart}
-          className="absolute left-0 top-0 bottom-0 z-40 bg-black/60 hover:bg-black/80 w-12 flex items-center justify-center transition-all duration-300 border-r border-white/10 opacity-0 group-hover/list:opacity-100 disabled:opacity-0"
-        >
-          <FaChevronLeft size={24} className="text-white" />
-        </button>
-
-        <div className="overflow-hidden mx-2" ref={emblaRef}>
-          <div className="flex will-change-transform backface-hidden">
-            {movies.map((movie) => (
-              <div
-                key={movie.entity_id}
-                className="w-1/4 shrink-0 grow-0 px-2 flex"
-              >
-                <Link
-                  href={`/movie/${movie.entity_id}`}
-                  replace
-                  className="w-full block h-full"
-                >
-                  <MovieCard movie={movie} />
-                </Link>
-              </div>
-            ))}
+    <section
+      id={`movie_section_${title}`}
+      className={`${movies.length !== 0 && "mb-12"} group/list relative`}
+    >
+      {movies.length !== 0 && (
+        <>
+          <div className="flex items-center justify-between mb-4">
+            <h2
+              id={`category_title_${title}`}
+              className="text-2xl font-bold text-gray-100 border-l-4 border-red-600 pl-3"
+            >
+              {title}
+            </h2>
           </div>
-        </div>
 
-        <button
-          onClick={scrollNext}
-          className="absolute right-0 top-0 bottom-0 z-40 bg-black/60 hover:bg-black/80 w-12 flex items-center justify-center transition-all duration-300 border-l border-white/10 opacity-0 group-hover/list:opacity-100"
-        >
-          <FaChevronRight size={24} className="text-white" />
-        </button>
-      </div>
+          <div className="relative">
+            <button
+              onClick={scrollPrev}
+              disabled={isAtStart}
+              className="absolute left-0 top-0 bottom-0 z-40 bg-black/60 hover:bg-black/80 w-12 flex items-center justify-center transition-all duration-300 border-r border-white/10 opacity-0 group-hover/list:opacity-100 disabled:opacity-0"
+            >
+              <FaChevronLeft size={24} className="text-white" />
+            </button>
+
+            <div className="overflow-hidden mx-2" ref={emblaRef}>
+              <div className="flex will-change-transform backface-hidden">
+                {movies.map((movie) => (
+                  <div
+                    key={movie.entity_id}
+                    className="w-1/4 shrink-0 grow-0 px-2 flex"
+                  >
+                    <Link
+                      href={`/movie/${movie.entity_id}`}
+                      replace
+                      className="w-full block h-full"
+                    >
+                      <MovieCard movie={movie} />
+                    </Link>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <button
+              onClick={scrollNext}
+              className="absolute right-0 top-0 bottom-0 z-40 bg-black/60 hover:bg-black/80 w-12 flex items-center justify-center transition-all duration-300 border-l border-white/10 opacity-0 group-hover/list:opacity-100"
+            >
+              <FaChevronRight size={24} className="text-white" />
+            </button>
+          </div>
+        </>
+      )}
     </section>
   );
 };
