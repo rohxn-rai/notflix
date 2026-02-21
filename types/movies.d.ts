@@ -5,18 +5,18 @@ export interface MovieProps {
   entity_imageurl: string;
   entity_colorId: string;
   entity_synopsis: string;
-  entity_brand: string;
-  entity_releaseYear?: number;
-  entity_runtimeMinutes?: number;
-  entity_ratingMPAA?: string;
-  entity_imdbRating?: number;
+  entity_brand?: string;
+  entity_releaseyear?: number;
+  entity_runtimeminutes?: number;
+  entity_ratingmpaa?: string;
+  entity_imdbrating?: number;
   entity_director?: string;
-  entity_primaryCast?: string;
+  entity_primarycast?: string;
   entity_language?: string;
   entity_country?: string;
   entity_franchise?: string;
-  entity_streamingAvailable?: string;
-  entity_popularityScore?: number;
+  entity_streamingavailable?: string;
+  entity_popularityscore?: number;
   entity_custom1?: string;
 }
 

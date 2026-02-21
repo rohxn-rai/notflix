@@ -33,6 +33,11 @@ const MovieCard = ({ movie }: { movie: MovieProps }) => {
               onError={() => setImageError(true)}
             />
           )}
+          {movie.entity_ratingmpaa && (
+            <span className="absolute text-[10px] bg-gray-800 px-2 py-1 rounded text-gray-400 border border-gray-700 whitespace-nowrap z-11 top-4 right-2">
+              {movie.entity_ratingmpaa}
+            </span>
+          )}
         </div>
 
         <div className="absolute inset-0 bg-linear-to-t from-gray-900 via-transparent to-transparent z-20"></div>
