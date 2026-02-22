@@ -59,14 +59,14 @@ const LandingPage = async () => {
         <section className="group/list relative mb-12">
           <div className="mboxDefault" id="mbox-maybe" data-id="mbox-maybe" />
         </section>
-        <MovieList title="Recently Watched" movies={[]} />
-        <MovieList title="Trending Now" movies={trendingMovies} />
-        <MovieList title="Sci-Fi & Cyberpunk" movies={sciFi} />
-        <MovieList title="Horror & Thriller" movies={horror} />
-        <MovieList title="High Octane Action" movies={action} />
-        <MovieList title="Animated Masterpieces" movies={animation} />
-        <MovieList title="Laugh Out Loud" movies={comedy} />
-        <MovieList title="Romance & Drama" movies={romance} />
+        <MovieList title={["most", "viewed"]} movies={[]} />
+        <MovieList title={["trending", "now"]} movies={trendingMovies} />
+        <MovieList title={["sci-fi", "&", "cyberpunk"]} movies={sciFi} />
+        <MovieList title={["horror", "&", "thriller"]} movies={horror} />
+        <MovieList title={["high", "octane", "action"]} movies={action} />
+        <MovieList title={["animated", "masterpieces"]} movies={animation} />
+        <MovieList title={["laugh", "out", "Loud"]} movies={comedy} />
+        <MovieList title={["romance", "&", "Drama"]} movies={romance} />
       </main>
 
       <Footer />

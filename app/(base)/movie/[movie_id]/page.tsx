@@ -1,25 +1,42 @@
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { cookies } from "next/headers";
+import { UUID } from "crypto";
 import MovieDetailView from "@/components/MovieDetailView";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { neon } from "@neondatabase/serverless";
-import { UUID } from "crypto";
 import { MovieProps, ReviewProps } from "@/types/movies";
 
-interface PageProps {
+const sql = neon(process.env.DATABASE_URL!);
+
+interface MoviePageProps {
   params: Promise<{ movie_id: UUID }>;
 }
 
-const MoviePage = async ({ params }: PageProps) => {
+const generateMetadata = async ({
+  params,
+}: MoviePageProps): Promise<Metadata> => {
   const { movie_id } = await params;
 
-  const sql = neon(process.env.DATABASE_URL!);
+  const results = await sql`
+    SELECT entity_name,entity_synopsis FROM movies
+    WHERE entity_id = ${movie_id}`;
+
+  const movie = results[0] as MovieProps;
+
+  return {
+    title: `${movie.entity_name} | NotFlix`,
+    description: movie.entity_synopsis,
+  };
+};
+
+const MoviePage = async ({ params }: MoviePageProps) => {
+  const { movie_id } = await params;
 
   const results = await sql`
-  SELECT * FROM movies
-  WHERE entity_id = ${movie_id}
-`;
+    SELECT * FROM movies
+    WHERE entity_id = ${movie_id}`;
 
   const movie = results[0] as MovieProps;
 
@@ -49,3 +66,5 @@ const MoviePage = async ({ params }: PageProps) => {
 };
 
 export default MoviePage;
+
+export { generateMetadata };
