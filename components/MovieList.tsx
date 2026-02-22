@@ -8,7 +8,7 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import { MovieProps } from "@/types/movies";
 
 interface MovieListComponentProps {
-  title: string;
+  title: string[];
   movies: MovieProps[];
 }
 
@@ -46,17 +46,17 @@ const MovieList = ({ title, movies }: MovieListComponentProps) => {
 
   return (
     <section
-      id={`movie_section_${title}`}
-      className={`${movies.length !== 0 && "mb-12"} group/list relative`}
+      id={`movie_section_${title.join("_")}`}
+      className={`${movies.length !== 0 && "mb-12"} group/list relative mboxDefault`}
     >
       {movies.length !== 0 && (
         <>
           <div className="flex items-center justify-between mb-4">
             <h2
               id={`category_title_${title}`}
-              className="text-2xl font-bold text-gray-100 border-l-4 border-red-600 pl-3"
+              className="text-2xl font-bold text-gray-100 border-l-4 border-red-600 pl-3 capitalize"
             >
-              {title}
+              {title.join(" ")}
             </h2>
           </div>
 
@@ -69,17 +69,17 @@ const MovieList = ({ title, movies }: MovieListComponentProps) => {
               <FaChevronLeft size={24} className="text-white" />
             </button>
 
-            <div className="overflow-hidden mx-2" ref={emblaRef}>
-              <div className="flex will-change-transform backface-hidden">
+            <div className="overflow-hidden px-2" ref={emblaRef}>
+              <div className="flex -ml-2 will-change-transform backface-visible">
                 {movies.map((movie) => (
                   <div
                     key={movie.entity_id}
-                    className="w-1/4 shrink-0 grow-0 px-2 flex"
+                    className="lg:w-1/4 md:w-1/3 w-1/2 shrink-0 grow-0 pl-4 flex"
                   >
                     <Link
                       href={`/movie/${movie.entity_id}`}
                       replace
-                      className="w-full block h-full"
+                      className="w-full block h-full movie_link"
                     >
                       <MovieCard movie={movie} />
                     </Link>
