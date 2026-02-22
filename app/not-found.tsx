@@ -1,7 +1,13 @@
 import Link from "next/link";
+import { cookies } from "next/headers";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import { cookies } from "next/headers";
+
+const metadata = {
+  title: "Not Found | NotFlix",
+  description:
+    "Error 404: The movie you are trying to find may not exist. Please check your ID once again!",
+};
 
 const NotFound = async () => {
   const cookieStore = await cookies();
@@ -45,3 +51,5 @@ const NotFound = async () => {
 };
 
 export default NotFound;
+
+export { metadata };
