@@ -19,34 +19,51 @@ const generateMetadata = async ({
 }: MoviePageProps): Promise<Metadata> => {
   const { movie_id } = await params;
 
-  const results = await sql`
-    SELECT entity_name,entity_synopsis FROM movies
-    WHERE entity_id = ${movie_id}`;
+  try {
+    const results = await sql`
+      SELECT entity_name, entity_synopsis FROM movies
+      WHERE entity_id = ${movie_id}`;
 
-  const movie = results[0] as MovieProps;
+    const movie = results[0] as MovieProps;
 
-  return {
-    title: `${movie.entity_name} | NotFlix`,
-    description: movie.entity_synopsis,
-  };
+    if (!movie) {
+      return notFound();
+    }
+
+    return {
+      title: `${movie.entity_name} | NotFlix`,
+      description: movie.entity_synopsis,
+    };
+  } catch (error) {
+    console.error("Metadata generation failed:", error);
+    return notFound();
+  }
 };
 
 const MoviePage = async ({ params }: MoviePageProps) => {
   const { movie_id } = await params;
 
-  const results = await sql`
-    SELECT * FROM movies
-    WHERE entity_id = ${movie_id}`;
+  let movie: MovieProps;
+  let review: ReviewProps[];
 
-  const movie = results[0] as MovieProps;
+  try {
+    const results = await sql`
+        SELECT * FROM movies
+        WHERE entity_id = ${movie_id}`;
 
-  if (!movie) {
-    notFound();
+    movie = results[0] as MovieProps;
+
+    if (!movie) {
+      notFound();
+    }
+
+    review = (await sql`
+          SELECT * FROM reviews
+          WHERE entity_id = ${movie_id}`) as ReviewProps[];
+  } catch (error) {
+    console.error("Content loading  failed:", error);
+    return notFound();
   }
-
-  const review: ReviewProps[] = (await sql`
-  SELECT * FROM reviews
-  WHERE entity_id = ${movie_id}`) as ReviewProps[];
 
   const cookieStore = await cookies();
   const userCookie = cookieStore.get("notflix_user");
