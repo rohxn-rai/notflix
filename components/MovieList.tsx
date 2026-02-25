@@ -51,11 +51,9 @@ const MovieList = ({
 
   useEffect(() => {
     if (!targetEventName) return;
-    console.log("🎬 MovieList Listener Active for:", targetEventName);
 
     const handleTargetData = (event: CustomEvent) => {
       const rawData = event.detail;
-      console.log("📦 Event Received:", event.detail);
 
       if (rawData && Array.isArray(rawData)) {
         const formattedMovies: MovieProps[] = rawData.map((item: any) => ({
@@ -68,7 +66,6 @@ const MovieList = ({
           entity_ratingmpaa: item.entity_ratingmpaa,
         }));
 
-        console.log("✅ Setting Movies State:", formattedMovies);
         setMovies(formattedMovies);
       }
     };
