@@ -82,6 +82,16 @@ const MovieList = ({
     };
   }, [targetEventName]);
 
+  let rightButtonVisibility = "hidden";
+
+  if (movies.length > 4) {
+    rightButtonVisibility = "flex";
+  } else if (movies.length > 3) {
+    rightButtonVisibility = "flex lg:hidden";
+  } else if (movies.length > 2) {
+    rightButtonVisibility = "flex md:hidden";
+  }
+
   const isAtStart = currentIndex === 0;
 
   return (
@@ -128,7 +138,7 @@ const MovieList = ({
 
         <button
           onClick={scrollNext}
-          className="absolute right-0 top-0 bottom-0 z-40 bg-black/60 hover:bg-black/80 w-12 flex items-center justify-center transition-all duration-300 border-l border-white/10 opacity-0 group-hover/list:opacity-100"
+          className={`${rightButtonVisibility} absolute right-0 top-0 bottom-0 z-40 bg-black/60 hover:bg-black/80 w-12 flex items-center justify-center transition-all duration-300 border-l border-white/10 opacity-0 group-hover/list:opacity-100`}
         >
           <FaChevronRight size={24} className="text-white" />
         </button>
