@@ -1,0 +1,8 @@
+## RECSRecommendations Upload File,,,,,,,,,,,,,,,,,,,,,,
+## RECS''## RECS'' indicates a Recommendations pre-process header. Please do not remove these lines.,,,,,,,,,,,,,,,,,,,,,,
+## RECS,,,,,,,,,,,,,,,,,,,,,,
+## RECSUse this file to upload product display information to Recommendations. Each product has its own row. Each line must contain 19 values and if not all are filled a space should be left.,,,,,,,,,,,,,,,,,,,,,,
+## RECSThe last 100 columns (entity.custom1 - entity.custom100) are custom. The name 'customN' can be replaced with a custom name such as 'onSale' or 'brand'.,,,,,,,,,,,,,,,,,,,,,,
+## RECSIf the products already exist in Recommendations then changes uploaded here will override the data in Recommendations. Any new attributes entered here will be added to the product''s entry in Recommendations.,,,,,,,,,,,,,,,,,,,,,,
+## RECSentity.id,entity.name,entity.category,entity.message,entity.thumbnailUrl,entity.value,entity.pageUrl,entity.inventory,entity.margin,entity.color,entity.brand,entity.releaseyear,entity.runtimeminutes,entity.ratingmpaa,entity.imdbrating,entity.director,entity.primaryCast,entity.language,entity.country,entity.franchise,entity.streamingavailable,entity.popularityscore,entity.brief_note
+4118081c-9597-4b24-8e6d-786f3a1f5f81,Iron Lung,Horror,"Set in a post-apocalyptic future where the Quiet Rapture has caused all stars and habitable planets to vanish, a convict is welded into a rusting submarine to navigate an ocean of blood on a desolate moon.",/Iron_Lung.webp,0,/,,,bg-red-950,Markiplier,2026,90,R,6.8,Mark Fischbach,"Mark Fischbach, Caroline Rose Kaplan",English,USA,Iron Lung,No,82,Based on the indie game by David Szymanski
