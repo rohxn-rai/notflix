@@ -30,20 +30,18 @@ const Footer = () => {
             data-id="mbox-footer-stuff"
           />
 
-          <div>
-            <div className="flex gap-12 text-sm text-gray-400">
-              <div className="flex flex-col gap-3 text-center md:text-left">
-                <span className="font-bold text-gray-200">Support</span>
-                <FooterLink href="#">Help Center</FooterLink>
-                <FooterLink href="#">Contact Us</FooterLink>
-                <FooterLink href="#">Privacy</FooterLink>
-              </div>
-              <div className="flex flex-col gap-3 text-center md:text-left">
-                <span className="font-bold text-gray-200">Company</span>
-                <FooterLink href="#">About Us</FooterLink>
-                <FooterLink href="#">Careers</FooterLink>
-                <FooterLink href="#">Press</FooterLink>
-              </div>
+          <div className="flex gap-12 text-sm text-gray-400">
+            <div className="flex flex-col gap-3 text-center md:text-left">
+              <span className="font-bold text-gray-200">Support</span>
+              <FooterLink href="#">Help Center</FooterLink>
+              <FooterLink href="#">Contact Us</FooterLink>
+              <FooterLink href="#">Privacy</FooterLink>
+            </div>
+            <div className="flex flex-col gap-3 text-center md:text-left">
+              <span className="font-bold text-gray-200">Company</span>
+              <FooterLink href="#">About Us</FooterLink>
+              <FooterLink href="#">Careers</FooterLink>
+              <FooterLink href="#">Press</FooterLink>
             </div>
           </div>
         </div>

@@ -65,7 +65,6 @@ const LandingPage = async () => {
           targetEventName="target-most-viewed-loaded"
         />
         {/* <MovieList title={["trending", "now"]} movies={trendingMovies} /> */}
-        <MovieList title={["sci-fi", "&", "cyberpunk"]} movies={sciFi} />
         <MovieList title={["horror", "&", "thriller"]} movies={horror} />
         <MovieList title={["high", "octane", "action"]} movies={action} />
         <MovieList title={["animated", "masterpieces"]} movies={animation} />
@@ -74,6 +73,7 @@ const LandingPage = async () => {
       </main>
 
       <Footer />
+      <MovieList title={["sci-fi", "&", "cyberpunk"]} movies={sciFi} />
     </>
   );
 };
