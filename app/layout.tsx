@@ -25,7 +25,7 @@ const RootLayout = ({
   return (
     <html lang="en">
       <head>
-        <Script id="at-prehiding">
+        <Script id="at-pre-hiding" async>
           {`
             ;(function(win, doc, style, timeout) {
               var STYLE_ID = 'at-body-style';
@@ -57,15 +57,6 @@ const RootLayout = ({
           src="https://assets.adobedtm.com/6a203c8a0ff8/bc24c6001550/launch-75c76c716733-development.min.js"
           async
         />
-        <Script id="target-params">
-          {`
-            function targetPageParams() {
-                return {
-                    "at_property": "5fdf7bc9-56ca-4447-aa1d-99df6b8cf183"
-                };
-            }
-          `}
-        </Script>
       </head>
       <body className={`${jetbrainsMono.variable}`}>{children}</body>
     </html>
