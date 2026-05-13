@@ -25,7 +25,8 @@ const RootLayout = ({
   return (
     <html lang="en">
       <head>
-        <Script id="at-pre-hiding" async>
+        <script src="https://cdn.adobetarget.com/fm/v2/aepsupport/fm-library.js" />
+        {/* <Script id="at-pre-hiding" async>
           {`
             ;(function(win, doc, style, timeout) {
               var STYLE_ID = 'at-body-style';
@@ -51,7 +52,7 @@ const RootLayout = ({
               }, timeout);
             }(window, document, "body {opacity: 0 !important}", 3000));
           `}
-        </Script>
+        </Script> */}
         <Script
           id="adobe-launch"
           src="https://assets.adobedtm.com/6a203c8a0ff8/bc24c6001550/launch-75c76c716733-development.min.js"
