@@ -25,7 +25,6 @@ const RootLayout = ({
   return (
     <html lang="en">
       <head>
-        <script src="https://cdn.adobetarget.com/fm/v2/aepsupport/fm-library.js" />
         {/* <Script id="at-pre-hiding" async>
           {`
             ;(function(win, doc, style, timeout) {
