@@ -40,16 +40,16 @@ const LandingPage = async () => {
     ],
   );
 
-  const trendingMovies = [
-    horror[0],
-    sciFi[0],
-    animation[7],
-    action[1],
-    romance[1],
-    action[0],
-    comedy[6],
-    animation[0],
-  ];
+  // const trendingMovies = [
+  //   horror[0],
+  //   sciFi[0],
+  //   animation[7],
+  //   action[1],
+  //   romance[1],
+  //   action[0],
+  //   comedy[6],
+  //   animation[0],
+  // ];
 
   return (
     <>
